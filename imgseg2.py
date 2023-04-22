@@ -15,6 +15,7 @@ THRESHOLD = int(sys.argv[3])
 class SeedSegment(object):
 	def __init__(self,img,k):
 		self.gray_image = cv2.imread(IMAGE_NAME, cv2.IMREAD_GRAYSCALE)
+		# threshold,_ = cv2.threshold(self.gray_image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 		self.stack=[]
 		self.img=img
 		self.height,self.width=self.img.shape
