@@ -17,7 +17,6 @@ def seeded_region_growing(img, seed_point, threshold):
     # get the height and width of the image
     height, width = img.shape[:2]
  
-
     # initialize visited pixels with zeros
     visited = np.zeros_like(img)
 
@@ -37,6 +36,8 @@ def seeded_region_growing(img, seed_point, threshold):
         # check if the current point has already been visited
         if visited[current_point[1], current_point[0]] == 1:
             continue
+
+        # check whether the 4-neighbors have been labelled
 
         # check if the difference between the current point and the seed point is less than the threshold
         #print(abs(img[current_point[1], current_point[0]] - img[seed_point[1], seed_point[0]]))
