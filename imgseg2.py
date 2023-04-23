@@ -7,10 +7,12 @@ from copy import deepcopy
 from scipy import ndimage
 import random
 import sys
+from tkinter import filedialog as fd
 
-IMAGE_NAME = sys.argv[1]
-NUM_SEGMENTS = int(sys.argv[2])
-THRESHOLD = int(sys.argv[3])
+print("Choose the image to be segmented")
+IMAGE_NAME = fd.askopenfilename()
+NUM_SEGMENTS = int(input("Number of segments to divide the image into: "))
+THRESHOLD = 2
 
 class SeedSegment(object):
 	def __init__(self,img,k):
@@ -115,7 +117,7 @@ class SeedSegment(object):
 					self.img_label[x,y]=curr_label
 					self.stack.append((x,y))
 			
-	def result(self):
+	def result(self, filename):
 		temp={}
 		val=0
 		count=0
@@ -138,7 +140,7 @@ class SeedSegment(object):
 		print(count)
 		print(clus)
 		print(self.img.shape)
-		cv2.imwrite('seg.png',self.img)
+		cv2.imwrite(filename+".png",self.img)
 		# cv2.imshow('Result',self.img)
 		# cv2.waitkey(0)
 
@@ -147,6 +149,7 @@ r, g, b = Image[:,:,0], Image[:,:,1], Image[:,:,2]
 gray_img = 0.2989 * r + 0.5870 * g + 0.1140 * b
 SRG=SeedSegment(gray_img,NUM_SEGMENTS)
 SRG.start()
-SRG.result()
+filename = input("Enter the file name of the resulting image(without extension): ")
+SRG.result(filename)
 
 
